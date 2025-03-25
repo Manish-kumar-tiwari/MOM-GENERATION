@@ -1,67 +1,112 @@
-/* Main Container */
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f4;
-}
-
-/* Centered Box */
-.center-box {
-  width: 50%; /* Make it 50% of the screen width */
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
 }
 
-/* Header */
-.header {
-  width: 100%;
-  padding: 15px;
-  background-color: #717ea8;
-  color: white;
+.center-box {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 400px;
   text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 10px 10px 0 0;
 }
 
-/* Form Container */
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
 .form-container {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  width: 80%;
-  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Input Field */
 .input-field {
-  flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
   width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
   outline: none;
 }
 
-/* Button */
-.generate-btn {
-  padding: 12px 18px;
+.input-field:focus {
+  border-color: #007bff;
+}
+
+.email-container {
+  display: flex;
+  gap: 10px;
+}
+
+.email-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 16px;
-  border: none;
-  background-color: #007bff;
+  resize: none;
+  height: 60px;
+}
+
+.add-email-btn {
+  background-color: #28a745;
   color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s;
+}
+
+.add-email-btn:hover {
+  background-color: #218838;
+}
+
+.email-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.email-tag {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.generate-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .generate-btn:hover {

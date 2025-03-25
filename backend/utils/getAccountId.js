@@ -1,7 +1,6 @@
 const axios = require("axios");
 
 const JIRA_BASE_URL = process.env.JIRA_BASE_URL;
-const JIRA_EMAIL = process.env.JIRA_EMAIL;
 const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN;
 
 async function getAccountId(email) {

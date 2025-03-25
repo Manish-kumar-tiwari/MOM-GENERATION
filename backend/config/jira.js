@@ -5,17 +5,16 @@ const { getMultipleAccountIds } = require("../utils/getAccountIdHelper");
 const JIRA_BASE_URL = process.env.JIRA_BASE_URL;
 const JIRA_EMAIL = process.env.JIRA_EMAIL;
 const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN;
-const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY;
+const JIRA_PROJECT_KEY = "KAN";
 
 const auth = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64");
 
 async function createJiraIssues(tasks) {
-  // Get Account IDs for all emails
+  // Get Account IDs for all users
   const accountIds = await getMultipleAccountIds(tasks);
 
   // Check if account IDs were found
   if (Object.keys(accountIds).length === 0) {
-    console.error("❌ No account IDs found for the given emails.");
     return;
   }
 
@@ -23,16 +22,11 @@ async function createJiraIssues(tasks) {
 
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
-    const assigneeEmail = task.gmail; // Assign in a round-robin fashion
-    let assigneeId = accountIds[assigneeEmail];
+    const assigneeName = task.name; // Assign in a round-robin fashion
+    let assigneeId = accountIds[assigneeName];
 
     if (!assigneeId) {
-      // console.warn(
-      //   `⚠️ No account ID found for ${assigneeEmail}. Skipping task.`
-      // );
-      // continue;
-
-      assigneeId = "712020:7c793b29-3ecb-4f9b-a5f2-90036a339062";
+      continue;
     }
 
     const issueData = {
@@ -74,12 +68,12 @@ async function createJiraIssues(tasks) {
       );
 
       console.log(
-        `✅ Created JIRA Issue: ${response.data.key} (Assigned to ${assigneeEmail})`
+        `✅ Created JIRA Issue: ${response.data.key} (Assigned to ${assigneeName})`
       );
-      createdIssues.push({ id: response.data.key, assignee: assigneeEmail });
+      createdIssues.push({ id: response.data.key, assignee: assigneeName });
     } catch (error) {
       console.error(
-        `❌ Error creating JIRA issue for ${assigneeEmail}:`,
+        `❌ Error creating JIRA issue for ${assigneeName}:`,
         error.response?.data || error.message
       );
     }

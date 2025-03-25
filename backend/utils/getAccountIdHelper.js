@@ -1,16 +1,14 @@
-const { getAccountId } = require("./getAccountId");
+const { users } = require("./getJiraUsers");
 
 async function getMultipleAccountIds(tasks) {
   const accountIds = {};
 
   for (const task of tasks) {
-    const accountId = await getAccountId(task.gmail);
+    const accountId = users[task.name];
     if (accountId) {
-      accountIds[task.gmail] = accountId;
+      accountIds[task.name] = accountId;
     }
   }
-
-  console.log("All Account IDs:", accountIds);
   return accountIds;
 }
 

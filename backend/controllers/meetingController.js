@@ -1,17 +1,28 @@
 const sendEmail = require("../utils/emailService");
 const { createJiraIssues } = require("../config/jira");
+const { getJiraUsers } = require("../utils/getJiraUsers");
+// Adjust the file name accordingly
+
+// (async () => {
+//   await getJiraUsers();
+//   console.log(users); // Access users after fetching
+// })();
 
 let tasks = []; // Simulated task database
 
 exports.createJIRA = async (req, res) => {
   try {
     const task = req.body;
+    await getJiraUsers();
 
     const jiraResponse = await createJiraIssues(task);
+
+    console.log("jiraResponse", jiraResponse);
     if (jiraResponse) {
-      task.jiraId = jiraResponse.id; // Store JIRA Issue ID
-      tasks.push(task); // Store locally
+      task.jiraId = jiraResponse.id;
+      tasks.push(task);
       return res
+
         .status(201)
         .json({ message: "Task created", jiraId: task.jiraId });
     }
