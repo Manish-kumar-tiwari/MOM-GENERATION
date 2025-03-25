@@ -1,5 +1,5 @@
 // ✅ Fetch Jira Users dynamically
-const axios = require("axios"); 
+const axios = require("axios");
 
 const JIRA_URL = process.env.JIRA_BASE_URL;
 const JIRA_EMAIL = process.env.JIRA_EMAIL;

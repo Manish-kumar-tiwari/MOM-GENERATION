@@ -13,6 +13,7 @@ let tasks = []; // Simulated task database
 exports.createJIRA = async (req, res) => {
   try {
     const task = req.body;
+    console.log(task);
     await getJiraUsers();
 
     const jiraResponse = await createJiraIssues(task);
@@ -22,7 +23,7 @@ exports.createJIRA = async (req, res) => {
       task.jiraId = jiraResponse.id;
       tasks.push(task);
       return res
-
+ 
         .status(201)
         .json({ message: "Task created", jiraId: task.jiraId });
     }

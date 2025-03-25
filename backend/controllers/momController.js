@@ -9,6 +9,8 @@ const axios = require("axios"); // For making HTTP requests
 const API_KEY = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
+let key = [];
+
 // Function to fetch chatInfo from MS Graph API
 let meetingTopic = "";
 async function fetchChatInfo(meetingTopic) {
@@ -151,6 +153,8 @@ const summarizeAndEmail = async (req, res) => {
     const summaryText = meetingData["summary"] || "";
     const decisions = meetingData["decisions"] || "";
     const keyExtractions = meetingData["key extractions"] || "";
+    key = keyExtractions;
+    console.log(keyExtractions[0].taskName);
 
     // Generate the PDF in memory.
     const doc = new PDFDocument({ margin: 50 });
@@ -266,12 +270,27 @@ const summarizeAndEmail = async (req, res) => {
     doc.end();
 
     // Jira Integration
-    await axios.post(
-      "http://localhost:3000/api/meetings/create-jira",
-      keyExtractions
-    );
+
+    await axios.post("http://localhost:3000/api/meetings/create-jira", [
+      {
+        taskName: "MOM report Generation",
+        taskDescription: "Users are unable to login with Google OAuth",
+        assigneeName: "MaNISH KUMAR",
+      },
+      {
+        taskName: "MOM report Generation",
+        taskDescription: "Users are unable to login with Google OAuth",
+        assigneeName: "Manish",
+      },
+      {
+        taskName: "MOM report Generation",
+        taskDescription: "Users are unable to login with Google OAuth",
+        assigneeName: "Rahul",
+      },
+    ]);
   } catch (error) {
-    res.status(500).json({ error });
+    console.error("Error in /summarize-and-email endpoint:", error);
+    res.status(500).json({ error: "Internal server error." });
   }
 };
 

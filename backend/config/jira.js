@@ -10,6 +10,7 @@ const JIRA_PROJECT_KEY = "KAN";
 const auth = Buffer.from(`${JIRA_EMAIL}:${JIRA_API_TOKEN}`).toString("base64");
 
 async function createJiraIssues(tasks) {
+  console.log(tasks);
   // Get Account IDs for all users
   const accountIds = await getMultipleAccountIds(tasks);
 
@@ -22,7 +23,7 @@ async function createJiraIssues(tasks) {
 
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
-    const assigneeName = task.name; // Assign in a round-robin fashion
+    const assigneeName = task.assigneeName; // Assign in a round-robin fashion
     let assigneeId = accountIds[assigneeName];
 
     if (!assigneeId) {
@@ -32,7 +33,7 @@ async function createJiraIssues(tasks) {
     const issueData = {
       fields: {
         project: { key: JIRA_PROJECT_KEY },
-        summary: task.summary,
+        summary: task.taskName,
         description: {
           type: "doc",
           version: 1,
@@ -42,7 +43,7 @@ async function createJiraIssues(tasks) {
               content: [
                 {
                   type: "text",
-                  text: task.description,
+                  text: task.taskDescription,
                 },
               ],
             },

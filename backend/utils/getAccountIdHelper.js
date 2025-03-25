@@ -1,14 +1,17 @@
 const { users } = require("./getJiraUsers");
 
-async function getMultipleAccountIds(tasks) {
-  const accountIds = {};
+function getMultipleAccountIds(tasks) {
+  let accountIds = {};
 
   for (const task of tasks) {
-    const accountId = users[task.name];
+    console.log(task);
+    console.log("users", users);
+    const accountId = users[task.assigneeName];
     if (accountId) {
-      accountIds[task.name] = accountId;
+      accountIds[task.assigneeName] = accountId;
     }
   }
+  console.log("accountIds", accountIds);
   return accountIds;
 }
 
